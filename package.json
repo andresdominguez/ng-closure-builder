@@ -1,0 +1,8 @@
+{
+  "name": "ng-closure-builder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/andresdominguez/ng-closure-builder.git",
+  "author": "Andres Dominguez",
+  "license": "MIT"
+}
