@@ -6,6 +6,7 @@
   "author": "Andres Dominguez",
   "license": "MIT",
   "dependencies": {
-    "doctrine": "^2.0.0"
+    "doctrine": "^2.0.0",
+    "recast": "^0.11.20"
   }
 }
