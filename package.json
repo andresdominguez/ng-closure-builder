@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/andresdominguez/ng-closure-builder.git",
   "author": "Andres Dominguez",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "doctrine": "^2.0.0"
+  }
 }
