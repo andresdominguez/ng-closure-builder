@@ -81,7 +81,7 @@ exports = FooBarModule;`);
    * @ngInject
    */
   constructor(abc) {
-    this.abc_ = abc;
+   this.abc_ = abc;
   }
 }`);
   });
