@@ -8,8 +8,8 @@ class SomeComponent {
    * @ngInject
    */
   constructor(someService) {
-    /** @private {!SomeService} */
-    this.someService_ = someService;
+   /** @private {!SomeService} */
+   this.someService_ = someService;
   }
 }
 

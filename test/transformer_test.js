@@ -1,5 +1,7 @@
 const Transformer = require('../lib/transformer');
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 
 describe('Transformer', function() {
 
@@ -59,14 +61,14 @@ exports = FooBarModule;`);
 
   it('adds constructor argument', function() {
     const code = [
-        'class Foo {',
-        '  /**',
-        '   * Hello world.',
-        '   * @ngInject',
-        '   */',
-        '  constructor() {',
-        '  }',
-        '}'
+      'class Foo {',
+      '  /**',
+      '   * Hello world.',
+      '   * @ngInject',
+      '   */',
+      '  constructor() {',
+      '  }',
+      '}'
     ].join('\n');
 
     const transformed = new Transformer(code)
@@ -81,6 +83,7 @@ exports = FooBarModule;`);
    * @ngInject
    */
   constructor(abc) {
+   /** @private {Andres} */
    this.abc_ = abc;
   }
 }`);
@@ -111,9 +114,25 @@ exports = FooBarModule;`);
    * @ngInject
    */
   constructor(abc, def) {
+   /** @private {Juan} */
    this.def_ = def;
+
    this.abc_ = abc;
   }
 }`);
+  });
+
+  const readFile = function(fileName) {
+    return fs.readFileSync(path.join(__dirname, fileName), 'utf-8');
+  };
+
+  it('adds goog.require and injects constructor', function() {
+    const after = readFile('file-after.js');
+
+    const transformed = new Transformer(readFile('file-before.js'))
+        .injectConstructor('someService', 'foo.bar.SomeService', 'SomeService')
+        .toString();
+
+    assert.equal(transformed, after);
   });
 });
