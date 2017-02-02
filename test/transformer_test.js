@@ -85,4 +85,35 @@ exports = FooBarModule;`);
   }
 }`);
   });
+
+  it('assigns variable at the top', function() {
+    const code = `class Foo {
+  /**
+   * Hello world.
+   * @param {Andres} abc
+   * @ngInject
+   */
+  constructor(abc) {
+   this.abc_ = abc;
+  }
+}`;
+
+    const transformed = new Transformer(code)
+        .addConstructorParam('def', 'Juan')
+        .toString();
+
+    assert.equal(transformed,
+        `class Foo {
+  /**
+   * Hello world.
+   * @param {Andres} abc
+   * @param {Juan} def
+   * @ngInject
+   */
+  constructor(abc, def) {
+   this.def_ = def;
+   this.abc_ = abc;
+  }
+}`);
+  });
 });
