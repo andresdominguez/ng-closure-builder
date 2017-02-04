@@ -62,7 +62,7 @@ exports = FooBarModule;`);
           .addComponent('someComp', 'SomeComp', 'foo.bar.SomeComp')
           .toString();
 
-      assert.equal(transformed,`goog.module('foo.bar.FooBarModule');
+      assert.equal(transformed, `goog.module('foo.bar.FooBarModule');
 
 const SomeComp = goog.require('foo.bar.SomeComp');
 
