@@ -58,7 +58,19 @@ exports = FooBarModule;`);
     });
 
     it('adds component', () => {
+      const transformed = new Transformer(initialModule)
+          .addComponent('someComp', 'SomeComp', 'foo.bar.SomeComp')
+          .toString();
 
+      assert.equal(transformed,`goog.module('foo.bar.FooBarModule');
+
+const SomeComp = goog.require('foo.bar.SomeComp');
+
+const FooBarModule = angular.module('foo.bar.FooBarModule', []);
+
+FooBarModule.component('someComp', SomeComp);
+
+exports = FooBarModule;`);
     });
   });
 
