@@ -4,7 +4,7 @@ const path = require('path');
 const Transformer = require('../lib/transformer');
 
 describe('Transformer', () => {
-  const initalModule =
+  const initialModule =
 `goog.module('foo.bar.FooBarModule');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', []);
@@ -12,7 +12,7 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 exports = FooBarModule;`;
 
   it('adds goog.require', () => {
-    const transformed = new Transformer(initalModule)
+    const transformed = new Transformer(initialModule)
         .addGoogRequire('Andres', 'foo.bar.Andres')
         .toString();
 
@@ -27,7 +27,7 @@ exports = FooBarModule;`);
   });
 
   it('adds module dep', () => {
-    const transformed = new Transformer(initalModule)
+    const transformed = new Transformer(initialModule)
         .addModule('AndresModule')
         .toString();
 
@@ -40,7 +40,7 @@ exports = FooBarModule;`);
   });
 
   it('adds service', () => {
-    const transformed = new Transformer(initalModule)
+    const transformed = new Transformer(initialModule)
         .addService('someStuff', 'SomeStuff', 'foo.bar.SomeStuff')
         .toString();
 
