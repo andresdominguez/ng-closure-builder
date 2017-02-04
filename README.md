@@ -11,7 +11,8 @@ npm install ng-closure-builder
 ```js
 const Transformer = require('../lib/transformer');
 
-const transformed = new Transformer(readFile('file-before.js'))
+const fileContents = fs.readFileSync('path', 'utf-8');
+const transformed = new Transformer(fileContents)
     .injectConstructor('someService', 'foo.bar.SomeService', 'SomeService')
     .toString();
 
@@ -31,6 +32,12 @@ const <identifier> goog.require('<namespace>');
 #### injectConstructor(injectableName, namespace, injectableType)
 
 Adds an injectable to a constructor and a goog.require at the top
+
+```js
+const transformed = new Transformer(fileContents)
+    .injectConstructor('someService', 'foo.bar.SomeService', 'SomeService')
+    .toString();
+```
 
 Before:
 
