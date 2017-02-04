@@ -2,11 +2,22 @@
 
 AST builder to manipulate AngularJS files based in Google closure.
 
-## Usage
+It is designed to manipulate angular modules and ES6 classes written with
+Google's closure compiler.
+
+## Installation
 
 ```shell
 npm install ng-closure-builder
 ```
+
+## Usage
+
+This library exposes a Transformer class that receives the contents of a
+JavaScript file. You can chain multiple calls and when you are done call
+toString() to get the transformed file.
+
+# ES6 classes
 
 ```js
 const Transformer = require('../lib/transformer');
