@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Transformer = require('../lib/transformer');
 
-describe('Transformer', function() {
+describe('Transformer', () => {
   const initalModule =
 `goog.module('foo.bar.FooBarModule');
 
@@ -11,7 +11,7 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 
 exports = FooBarModule;`;
 
-  it('adds goog.require', function() {
+  it('adds goog.require', () => {
     const transformed = new Transformer(initalModule)
         .addGoogRequire('Andres', 'foo.bar.Andres')
         .toString();
@@ -26,7 +26,7 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 exports = FooBarModule;`);
   });
 
-  it('adds module dep', function() {
+  it('adds module dep', () => {
     const transformed = new Transformer(initalModule)
         .addModule('AndresModule')
         .toString();
@@ -39,7 +39,7 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name])
 exports = FooBarModule;`);
   });
 
-  it('adds service', function() {
+  it('adds service', () => {
     const transformed = new Transformer(initalModule)
         .addService('someStuff', 'SomeStuff', 'foo.bar.SomeStuff')
         .toString();
@@ -56,7 +56,7 @@ FooBarModule.service('someStuff', SomeStuff);
 exports = FooBarModule;`);
   });
 
-  it('adds constructor argument', function() {
+  it('adds constructor argument', () => {
     const code = [
       'class Foo {',
       '  /**',
@@ -86,7 +86,7 @@ exports = FooBarModule;`);
 }`);
   });
 
-  it('assigns variable at the top', function() {
+  it('assigns variable at the top', () => {
     const code = `class Foo {
   /**
    * Hello world.
@@ -123,7 +123,7 @@ exports = FooBarModule;`);
     return fs.readFileSync(path.join(__dirname, fileName), 'utf-8');
   };
 
-  it('adds goog.require and injects constructor', function() {
+  it('adds goog.require and injects constructor', () => {
     const after = readFile('file-after.js');
 
     const transformed = new Transformer(readFile('file-before.js'))
