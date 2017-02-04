@@ -2,7 +2,6 @@ const assert = require('assert');
 const JsDocTransformer = require('../lib/jsdoc_transformer');
 
 describe('js doc transformer', function() {
-
   const comments = [
     '/**',
     ' * Hello world',
@@ -10,7 +9,6 @@ describe('js doc transformer', function() {
     ' * @ngInject',
     ' */',
   ].join('\n');
-
 
   it('adds param', function() {
     const transformed = new JsDocTransformer(comments)
