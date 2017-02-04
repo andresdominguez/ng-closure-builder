@@ -82,3 +82,29 @@ class SomeComponent {
   }
 }
 ```
+
+# Angular modules
+
+#### addModule(moduleName)
+
+```js
+const transformed = new Transformer(fileContents)
+    .addModule('AndresModule')
+    .toString();
+```
+
+Before:
+
+```js
+goog.module('foo.bar.FooBarModule');
+
+const FooBarModule = angular.module('foo.bar.FooBarModule', []);
+```
+
+After:
+
+```js
+goog.module('foo.bar.FooBarModule');
+
+const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
+```
