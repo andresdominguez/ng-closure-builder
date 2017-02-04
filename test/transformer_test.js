@@ -1,17 +1,15 @@
-const Transformer = require('../lib/transformer');
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const Transformer = require('../lib/transformer');
 
 describe('Transformer', function() {
+  const initalModule =
+`goog.module('foo.bar.FooBarModule');
 
-  const initalModule = [
-    `goog.module('foo.bar.FooBarModule');`,
-    ``,
-    `const FooBarModule = angular.module('foo.bar.FooBarModule', []);`,
-    ``,
-    `exports = FooBarModule;`,
-  ].join('\n');
+const FooBarModule = angular.module('foo.bar.FooBarModule', []);
+
+exports = FooBarModule;`;
 
   it('adds goog.require', function() {
     const transformed = new Transformer(initalModule)
@@ -27,7 +25,6 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 
 exports = FooBarModule;`);
   });
-
 
   it('adds module dep', function() {
     const transformed = new Transformer(initalModule)
