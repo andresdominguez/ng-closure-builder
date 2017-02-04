@@ -32,7 +32,7 @@ console.log(transformed);
 
 ## Functions
 
-#### addGoogRequire(identifier, namespace)
+### addGoogRequire(identifier, namespace)
 
 Adds a goog.require at the top of the file.
 
@@ -40,7 +40,7 @@ Adds a goog.require at the top of the file.
 const <identifier> goog.require('<namespace>');
 ```
 
-#### injectConstructor(injectableName, namespace, injectableType)
+### injectConstructor(injectableName, namespace, injectableType)
 
 Adds an injectable to a constructor and a goog.require at the top
 
@@ -85,7 +85,7 @@ class SomeComponent {
 
 # Angular modules
 
-#### addModule(moduleName)
+### addModule(moduleName)
 
 Adds an angular module as a dependency to the current module. Use it with
 addGoogRequire() to import the module dependency.
@@ -115,7 +115,7 @@ const AndresModule = goog.require('foo.bar.AndresModule');
 const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
 ```
 
-#### addService(serviceName, className, namespace)
+### addService(serviceName, className, namespace)
 
 Adds a service to the module along with the goog.require for the service class.
 
