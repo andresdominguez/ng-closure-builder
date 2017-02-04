@@ -26,26 +26,27 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 exports = FooBarModule;`);
   });
 
-  it('adds module dep', () => {
-    const transformed = new Transformer(initialModule)
-        .addModule('AndresModule')
-        .toString();
+  describe('Modules', () => {
+    it('adds module dep', () => {
+      const transformed = new Transformer(initialModule)
+          .addModule('AndresModule')
+          .toString();
 
-    assert.equal(transformed,
-        `goog.module('foo.bar.FooBarModule');
+      assert.equal(transformed,
+          `goog.module('foo.bar.FooBarModule');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
 
 exports = FooBarModule;`);
-  });
+    });
 
-  it('adds service', () => {
-    const transformed = new Transformer(initialModule)
-        .addService('someStuff', 'SomeStuff', 'foo.bar.SomeStuff')
-        .toString();
+    it('adds service', () => {
+      const transformed = new Transformer(initialModule)
+          .addService('someStuff', 'SomeStuff', 'foo.bar.SomeStuff')
+          .toString();
 
-    assert.equal(transformed,
-        `goog.module('foo.bar.FooBarModule');
+      assert.equal(transformed,
+          `goog.module('foo.bar.FooBarModule');
 
 const SomeStuff = goog.require('foo.bar.SomeStuff');
 
@@ -54,6 +55,11 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 FooBarModule.service('someStuff', SomeStuff);
 
 exports = FooBarModule;`);
+    });
+
+    it('adds component', () => {
+
+    });
   });
 
   it('adds constructor argument', () => {
