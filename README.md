@@ -89,6 +89,7 @@ class SomeComponent {
 
 ```js
 const transformed = new Transformer(fileContents)
+    .addGoogRequire('Andres', 'foo.bar.Andres')
     .addModule('AndresModule')
     .toString();
 ```
@@ -105,6 +106,8 @@ After:
 
 ```js
 goog.module('foo.bar.FooBarModule');
+
+const AndresModule = goog.require('foo.bar.Andres');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
 ```
