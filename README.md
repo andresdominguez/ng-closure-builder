@@ -87,6 +87,9 @@ class SomeComponent {
 
 #### addModule(moduleName)
 
+Adds an angular module as a dependency to the current module. Use it with
+addGoogRequire() to import the module dependency.
+
 ```js
 const transformed = new Transformer(fileContents)
     .addGoogRequire('AndresModule', 'foo.bar.AndresModule')
@@ -110,4 +113,34 @@ goog.module('foo.bar.FooBarModule');
 const AndresModule = goog.require('foo.bar.AndresModule');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
+```
+
+#### addService(serviceName, className, namespace)
+
+Adds a service to the module along with the goog.require for the service class.
+
+```js
+const transformed = new Transformer(initialModule)
+    .addService('someService', 'SomeService', 'foo.bar.SomeService')
+    .toString();
+```
+
+Before:
+
+```js
+goog.module('foo.bar.FooBarModule');
+
+const FooBarModule = angular.module('foo.bar.FooBarModule', []);
+```
+
+After:
+
+```js
+goog.module('foo.bar.FooBarModule');
+
+const SomeService = goog.require('foo.bar.SomeService');
+
+const FooBarModule = angular.module('foo.bar.FooBarModule', []);
+
+FooBarModule.service('someService', SomeService);
 ```
