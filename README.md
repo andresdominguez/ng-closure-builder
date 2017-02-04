@@ -20,7 +20,7 @@ console.log(transformed);
 
 ## Functions
 
-addGoogRequire(identifier, namespace)
+#### addGoogRequire(identifier, namespace)
 
 Adds a goog.require at the top of the file.
 
@@ -28,3 +28,39 @@ Adds a goog.require at the top of the file.
 const <identifier> goog.require('<namespace>');
 ```
 
+#### injectConstructor(injectableName, namespace, injectableType)
+
+Adds an injectable to a constructor and a goog.require at the top
+
+Before:
+
+```js
+goog.module('foo.bar.SomeComponent');
+
+class SomeComponent {
+  /**
+   * @ngInject
+   */
+  constructor() {
+  }
+}
+```
+
+After:
+
+```js
+goog.module('foo.bar.SomeComponent');
+
+const SomeService = goog.require('foo.bar.SomeService');
+
+class SomeComponent {
+  /**
+   * @param {!SomeService} someService
+   * @ngInject
+   */
+  constructor(someService) {
+    /** @private {!SomeService} */
+    this.someService_ = someService;
+  }
+}
+```
