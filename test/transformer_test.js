@@ -5,7 +5,7 @@ const Transformer = require('../lib/transformer');
 
 describe('Transformer', () => {
   const initialModule =
-`goog.module('foo.bar.FooBarModule');
+      `goog.module('foo.bar.FooBarModule');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 
@@ -38,6 +38,12 @@ exports = FooBarModule;`);
 const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
 
 exports = FooBarModule;`);
+    });
+
+    it('throws when module not found', () => {
+      assert.throws(() => {
+        new Transformer('').addModule('foo')
+      }, err => !!err.message.match(/Cannot find angular module in file/));
     });
 
     it('adds service', () => {
