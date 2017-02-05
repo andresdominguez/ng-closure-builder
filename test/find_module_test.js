@@ -13,23 +13,14 @@ describe('Find module', () => {
   };
 
   it('finds service with module on same line', () => {
-    const symbolName = 'serviceOne';
-    return findModule(dir, symbolName).then(fileName => {
-      assert(fileName.indexOf('module-with-service.js') !== -1,
-          'File not found');
-    });
+    runFind('serviceOne');
   });
 
   it('should finds service in multiple lines', function() {
-    const symbolName = 'serviceTwo';
-    return findModule(dir, symbolName).then(fileName => {
-      assert(fileName.indexOf('module-with-service.js') !== -1,
-          'File not found');
-    });
+    runFind('serviceTwo');
   });
 
   it('should finds service with string in next line', function() {
-    const symbolName = 'serviceThree';
-    return runFind(symbolName);
+    return runFind('serviceThree');
   });
 });
