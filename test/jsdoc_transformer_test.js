@@ -9,7 +9,7 @@ const comments = [
   ' */',
 ].join('\n');
 
-test('adds param', (t) => {
+test('adds param', t => {
   const transformed = new JsDocTransformer(comments)
       .addParam('john', '!SomeJohn')
       .toString();
@@ -23,7 +23,7 @@ test('adds param', (t) => {
  */`);
 });
 
-test('adds first param', (t) => {
+test('adds first param', t => {
   // Given jsdoc without params.
   const comments = [
     '/**',
@@ -46,7 +46,7 @@ test('adds first param', (t) => {
  */`);
 });
 
-test('adds ngInject and param', (t) => {
+test('adds ngInject and param', t => {
   // Given jsdoc without params and ngInject.
   const comments = [
     '/**',
