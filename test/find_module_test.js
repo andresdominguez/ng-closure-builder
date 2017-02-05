@@ -5,24 +5,31 @@ const findModule = require('./find_module');
 describe('Find module', () => {
   const dir = path.join(__dirname, '..', 'testdata');
 
+  const runFind = function(symbolName) {
+    return findModule(dir, symbolName).then(fileName => {
+      assert(fileName.indexOf('module-with-service.js') !== -1,
+          'File not found');
+    });
+  };
+
   it('finds service with module on same line', () => {
-    return findModule(dir, 'serviceOne').then(fileName => {
+    const symbolName = 'serviceOne';
+    return findModule(dir, symbolName).then(fileName => {
       assert(fileName.indexOf('module-with-service.js') !== -1,
           'File not found');
     });
   });
 
   it('should finds service in multiple lines', function() {
-    return findModule(dir, 'serviceTwo').then(fileName => {
+    const symbolName = 'serviceTwo';
+    return findModule(dir, symbolName).then(fileName => {
       assert(fileName.indexOf('module-with-service.js') !== -1,
           'File not found');
     });
   });
 
   it('should finds service with string in next line', function() {
-    return findModule(dir, 'serviceThree').then(fileName => {
-      assert(fileName.indexOf('module-with-service.js') !== -1,
-          'File not found');
-    });
+    const symbolName = 'serviceThree';
+    return runFind(symbolName);
   });
 });
