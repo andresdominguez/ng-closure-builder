@@ -5,10 +5,11 @@ const findModule = require('../lib/find_module');
 const dir = path.join(__dirname, '..', 'testdata');
 
 const runFind = function(t, symbolName) {
-  return findModule(dir, symbolName).then(({fileName, namespace}) => {
-    t.true(fileName.indexOf('module-with-service.js') !== -1);
-    t.is(namespace, 'sfd');
-  });
+  return findModule(dir, symbolName, 'service')
+      .then(({fileName, namespace}) => {
+        t.true(fileName.indexOf('module-with-service.js') !== -1);
+        t.is(namespace, 'sfd');
+      });
 };
 
 test('finds service with module on same line', t => {
@@ -20,5 +21,5 @@ test('should finds service in multiple lines', t => {
 });
 
 test('should finds service with string in next line', t => {
-  return runFind(t, 'serviceThree');
+  runFind(t, 'serviceThree');
 });
