@@ -42,8 +42,8 @@ exports = FooBarModule;`);
 
     it('throws when module not found', () => {
       assert.throws(() => {
-        new Transformer('').addModule('foo')
-      }, err => !!err.message.match(/Cannot find angular module in file/));
+        new Transformer('').addModule('foo');
+      }, e => (e.message.indexOf('Cannot find angular module in file') !== -1));
     });
 
     it('adds service', () => {
