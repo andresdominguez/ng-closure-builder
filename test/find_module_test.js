@@ -1,26 +1,24 @@
-const assert = require('assert');
+const test = require('ava');
 const path = require('path');
 const findModule = require('./find_module');
 
-describe('Find module', () => {
-  const dir = path.join(__dirname, '..', 'testdata');
+const dir = path.join(__dirname, '..', 'testdata');
 
-  const runFind = function(symbolName) {
-    return findModule(dir, symbolName).then(fileName => {
-      assert(fileName.indexOf('module-with-service.js') !== -1,
-          'File not found');
-    });
-  };
-
-  it('finds service with module on same line', () => {
-    runFind('serviceOne');
+const runFind = function(t, symbolName) {
+  return findModule(dir, symbolName).then(({fileName, namespace}) => {
+    t.true(fileName.indexOf('module-with-service.js') !== -1);
+    t.is(namespace, 'sfd');
   });
+};
 
-  it('should finds service in multiple lines', function() {
-    runFind('serviceTwo');
-  });
+test('finds service with module on same line', t => {
+  runFind(t, 'serviceOne');
+});
 
-  it('should finds service with string in next line', function() {
-    return runFind('serviceThree');
-  });
+test('should finds service in multiple lines', t => {
+  runFind(t, 'serviceTwo');
+});
+
+test('should finds service with string in next line', t => {
+  return runFind(t, 'serviceThree');
 });
