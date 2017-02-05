@@ -8,18 +8,18 @@ const runFind = function(t, symbolName) {
   return findModule(dir, symbolName, 'service')
       .then(({fileName, namespace}) => {
         t.true(fileName.indexOf('module-with-service.js') !== -1);
-        t.is(namespace, 'sfd');
+        t.is(namespace, 'foo.bar.FooBarModule');
       });
 };
 
 test('finds service with module on same line', t => {
-  runFind(t, 'serviceOne');
+  return runFind(t, 'serviceOne');
 });
 
 test('should finds service in multiple lines', t => {
-  runFind(t, 'serviceTwo');
+  return runFind(t, 'serviceTwo');
 });
 
 test('should finds service with string in next line', t => {
-  runFind(t, 'serviceThree');
+  return runFind(t, 'serviceThree');
 });
