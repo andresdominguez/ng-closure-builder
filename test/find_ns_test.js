@@ -1,11 +1,12 @@
 const path = require('path');
 const test = require('ava');
-const nsFinder = require('../lib/ns_finder');
+const nsFinder = require('../lib/find_ns');
 
-test('finds namespace', t => {
+test('finds namespace', async t => {
   const filePath =
       path.join(__dirname, '..', 'testdata', 'module-with-service.js');
-  return nsFinder(filePath).then(found => t.is(found, 'foo.bar.FooBarModule'));
+  const ns = await nsFinder(filePath);
+  t.is(ns, 'foo.bar.FooBarModule');
 });
 
 test('rejects promise when no goog.module is present', async t => {
