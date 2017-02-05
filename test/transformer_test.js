@@ -1,7 +1,6 @@
-const assert = require('assert');
-const test = require('ava');
 const fs = require('fs');
 const path = require('path');
+const test = require('ava');
 const Transformer = require('../lib/transformer');
 
 const initialModule =
@@ -40,9 +39,9 @@ exports = FooBarModule;`);
 });
 
 test('throws when module not found', t => {
-  assert.throws(() => {
+  t.throws(() => {
     new Transformer('').addModule('foo');
-  }, e => (e.message.indexOf('Cannot find angular module in file') !== -1));
+  }, 'Cannot find angular module in file');
 });
 
 test('adds service', t => {
