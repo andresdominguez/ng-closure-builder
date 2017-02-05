@@ -144,7 +144,8 @@ exports = FooBarModule;`);
   });
 
   const readFile = function(fileName) {
-    return fs.readFileSync(path.join(__dirname, fileName), 'utf-8');
+    const filePath = path.join(__dirname, '..', 'testdata', fileName);
+    return fs.readFileSync(filePath, 'utf-8');
   };
 
   it('adds goog.require and injects constructor', () => {
