@@ -1,6 +1,6 @@
-const test = require('ava');
 const path = require('path');
-const findModule = require('./find_module');
+const test = require('ava');
+const findModule = require('../lib/find_module');
 
 const dir = path.join(__dirname, '..', 'testdata');
 
