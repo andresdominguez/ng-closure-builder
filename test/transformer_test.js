@@ -1,9 +1,9 @@
 const assert = require('assert');
+const test = require('ava');
 const fs = require('fs');
 const path = require('path');
 const Transformer = require('../lib/transformer');
 
-describe('Transformer', () => {
   const initialModule =
       `goog.module('foo.bar.FooBarModule');
 
@@ -11,12 +11,12 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 
 exports = FooBarModule;`;
 
-  it('adds goog.require', () => {
+  test('adds goog.require', (t) => {
     const transformed = new Transformer(initialModule)
         .addGoogRequire('Andres', 'foo.bar.Andres')
         .toString();
 
-    assert.equal(transformed,
+    t.is(transformed,
         `goog.module('foo.bar.FooBarModule');
 
 const Andres = goog.require('foo.bar.Andres');
@@ -26,13 +26,13 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 exports = FooBarModule;`);
   });
 
-  describe('Modules', () => {
-    it('adds module dep', () => {
+
+    test('adds module dep', (t) => {
       const transformed = new Transformer(initialModule)
           .addModule('AndresModule')
           .toString();
 
-      assert.equal(transformed,
+      t.is(transformed,
           `goog.module('foo.bar.FooBarModule');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name]);
@@ -40,18 +40,18 @@ const FooBarModule = angular.module('foo.bar.FooBarModule', [AndresModule.name])
 exports = FooBarModule;`);
     });
 
-    it('throws when module not found', () => {
+    test('throws when module not found', (t) => {
       assert.throws(() => {
         new Transformer('').addModule('foo');
       }, e => (e.message.indexOf('Cannot find angular module in file') !== -1));
     });
 
-    it('adds service', () => {
+    test('adds service', (t) => {
       const transformed = new Transformer(initialModule)
           .addService('someStuff', 'SomeStuff', 'foo.bar.SomeStuff')
           .toString();
 
-      assert.equal(transformed,
+      t.is(transformed,
           `goog.module('foo.bar.FooBarModule');
 
 const SomeStuff = goog.require('foo.bar.SomeStuff');
@@ -63,12 +63,12 @@ FooBarModule.service('someStuff', SomeStuff);
 exports = FooBarModule;`);
     });
 
-    it('adds component', () => {
+    test('adds component', (t) => {
       const transformed = new Transformer(initialModule)
           .addComponent('someComp', 'SomeComp', 'foo.bar.SomeComp')
           .toString();
 
-      assert.equal(transformed, `goog.module('foo.bar.FooBarModule');
+      t.is(transformed, `goog.module('foo.bar.FooBarModule');
 
 const SomeComp = goog.require('foo.bar.SomeComp');
 
@@ -78,9 +78,8 @@ FooBarModule.component('someComp', SomeComp);
 
 exports = FooBarModule;`);
     });
-  });
 
-  it('adds constructor argument', () => {
+  test('adds constructor argument', (t) => {
     const code = [
       'class Foo {',
       '  /**',
@@ -96,7 +95,7 @@ exports = FooBarModule;`);
         .addConstructorParam('abc', 'Andres')
         .toString();
 
-    assert.equal(transformed,
+    t.is(transformed,
         `class Foo {
   /**
    * Hello world.
@@ -110,7 +109,7 @@ exports = FooBarModule;`);
 }`);
   });
 
-  it('assigns variable at the top', () => {
+  test('assigns variable at the top', (t) => {
     const code = `class Foo {
   /**
    * Hello world.
@@ -126,7 +125,7 @@ exports = FooBarModule;`);
         .addConstructorParam('def', 'Juan')
         .toString();
 
-    assert.equal(transformed,
+    t.is(transformed,
         `class Foo {
   /**
    * Hello world.
@@ -148,13 +147,13 @@ exports = FooBarModule;`);
     return fs.readFileSync(filePath, 'utf-8');
   };
 
-  it('adds goog.require and injects constructor', () => {
+  test('adds goog.require and injects constructor', (t) => {
     const after = readFile('file-after.js');
 
     const transformed = new Transformer(readFile('file-before.js'))
         .injectConstructor('someService', 'foo.bar.SomeService', 'SomeService')
         .toString();
 
-    assert.equal(transformed, after);
+    t.is(transformed, after);
   });
-});
+
