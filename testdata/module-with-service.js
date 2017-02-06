@@ -5,6 +5,7 @@ const SomeStuff = goog.require('foo.bar.SomeStuff');
 
 const FooBarModule = angular.module('foo.bar.FooBarModule', []);
 
+FooBarModule.component('compOne', SomeStuff);
 FooBarModule.service('serviceOne', SomeStuff);
 FooBarModule.service('serviceTwo',
     SomeStuff);
